@@ -1,6 +1,4 @@
-import clipboard from './build/Release/clipboard.node' assert { type: 'node' };
-import EventEmitter from 'events';
-
+const EventEmitter =  require('events');
 const clipboard = require('./build/Release/clipboard.node');
 
 class ClipboardWatcher extends EventEmitter {
@@ -42,5 +40,5 @@ try {
     console.error('❌ Error testing clipboard module:', error);
 }
 
-// const watcher = new ClipboardWatcher();
-// watcher.on('change', (count) => console.log('Clipboard changed!', count));
+const watcher = new ClipboardWatcher();
+watcher.on('change', (count) => console.log('Clipboard changed!', count));

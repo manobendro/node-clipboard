@@ -1,4 +1,30 @@
+import clipboard from './build/Release/clipboard.node' assert { type: 'node' };
+import EventEmitter from 'events';
+
 const clipboard = require('./build/Release/clipboard.node');
+
+class ClipboardWatcher extends EventEmitter {
+  constructor(interval = 500) {
+    super();
+    this.interval = interval;
+    this.last = clipboard.getChangeCount();
+    this.timer = setInterval(() => this.check(), this.interval);
+  }
+
+  check() {
+    const now = clipboard.getChangeCount();
+    if (now !== this.last) {
+      this.last = now;
+      this.emit('change', now);
+    }
+  }
+
+  stop() {
+    clearInterval(this.timer);
+  }
+}
+
+// Example:
 
 console.log('Testing clipboard module...');
 
@@ -15,3 +41,6 @@ try {
 } catch (error) {
     console.error('❌ Error testing clipboard module:', error);
 }
+
+// const watcher = new ClipboardWatcher();
+// watcher.on('change', (count) => console.log('Clipboard changed!', count));

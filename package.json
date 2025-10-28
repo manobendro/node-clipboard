@@ -1,8 +1,9 @@
 {
-  "name": "clipboard",
+  "name": "clipboard-changes",
   "version": "1.0.0",
   "description": "A Node.js native module to monitor clipboard changes",
   "main": "index.js",
+  "types": "index.d.ts",
   "gypfile": true,
   "scripts": {
     "install": "node-gyp rebuild",
